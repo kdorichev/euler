@@ -7,7 +7,7 @@ The test data are from https://www.hackerrank.com/contests/projecteuler/challeng
 
 Input data:
 First line: 1<=T<=10**5 -- number of tests
-Line 2...T+1 -- N
+Line 2...T+1 -- N: 1<=N,+10**9
 
 Example of input data:
 2
@@ -17,7 +17,14 @@ Example of input data:
 T = int(input())
 for i in range(T):
     N = int(input())
-    aset = set(range(3,N,3))
-    aset.update(range(5,N,5))
-    print(sum(aset))
-
+    # 3*(1+2+...+N//3)
+    N3 = N//3
+    if N%3 == 0: N3 -=1 # exclude last index
+    # 5*(1+2+...+N//5)
+    N5 = N//5
+    if N%5 == 0: N5 -=1 # exclude last index
+    N15 = N//15         # to exclude elements counted twice
+    if N%15 == 0: N15 -=1
+    # Use Sum of Ariphmetic Progression
+    summa = int(3*(1+N3)*N3//2 + 5*(1+N5)*N5//2 - 15*(1+N15)*N15//2)
+    print(summa)
